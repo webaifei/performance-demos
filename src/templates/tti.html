@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lcp</title>
+  <script>
+    !function(){if('PerformanceLongTaskTiming' in window){var g=window.__tti={e:[]};
+    g.o=new PerformanceObserver(function(l){g.e=g.e.concat(l.getEntries())});
+    g.o.observe({entryTypes:['longtask']})}}();
+  </script>
+  <script>
+    const ob = new PerformanceObserver(function (list) {
+      var entries = list.getEntries();
+      entries.forEach(item=> {
+        console.log(item);
+      })
+    });
+    ob.observe({entryTypes: ['largest-contentful-paint']})
+  </script>
+  <link rel="stylesheet" href="./index.css">
+  <style>
+    body {
+      background: #ccc;
+    }
+    .video {
+      /* 不可见的元素不会作为最大元素备选项 */
+      /* opacity: 0; */
+      /* visibility: hidden; */
+      /* display: none; */
+
+      /* size 取真实大小和css设置大小的最小值 */
+      width: 100px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <p class="title">title here</p>
+  <div class="box">
+
+  </div>
+  <p>没有poster属性的video元素不会作为最大元素的备选项</p>
+  <video class="video" src="https://media.w3.org/2010/05/sintel/trailer.mp4"></video>
+  <video class="video" src="" poster="./defi.png"></video>
+  <img src="https://static.bafang.com/cdn/assets/imgs/207/7202D7696482E5F7.png" alt="">
+</body>
+<script src="index.js"></script>
+<script src="tti-polyfill-debug.js"></script>
+<script>
+  ttiPolyfill.getFirstConsistentlyInteractive().then(console.log);
+</script>
+
+</html>
