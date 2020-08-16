@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fp</title>
+  <script>
+    const ob = new PerformanceObserver(function (list) {
+      var entries = list.getEntries();
+      entries.forEach(item=> {
+        console.log(item);
+      })
+    });
+    ob.observe({entryTypes: ['paint']})
+  </script>
+  <style>
+    /* body {
+      background: #ccc;
+    } */
+  </style>
+</head>
+<body>
+  <p style="color: #fff">aaa</p>
+  <link rel="stylesheet" href="./fp.css">
+  <p class="title">title here</p>
+  <div class="box">
+
+  </div>
+  <img src="./defi.png" alt="">
+</body>
+<script src="index.js"></script>
+</html>
