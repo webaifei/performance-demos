@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css文件会阻塞DOM解析吗</title>
+  <style>
+    body {
+      background: #ccc;
+    }
+    .box {
+      transform: translate3d(0, 0 ,0);
+    }
+  </style>
+  <!-- 下面的会在2s后返回 -->
+  <link rel="stylesheet" href="blocked-css.css">
+
+</head>
+<body>
+  <p class="title">滚动交互可以被合成线程接收，及时页面阻塞，也能交互？</p>
+  <div class="box">
+    <script src="async.js" async></script>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+  </div>
+  <img src="./defi.png" alt="">
+</body>
+<script src="index.js"></script>
+
+
+</html>

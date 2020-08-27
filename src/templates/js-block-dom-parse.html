@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js文件和执行阻塞DOM的解析</title>
+  <script>
+
+  </script>
+  <style>
+    body {
+      background: #ccc;
+    }
+    .box {
+      transform: translate3d(0, 0 ,0);
+    }
+  </style>
+</head>
+<body>
+  <p class="title">滚动交互可以被合成线程接收，及时页面阻塞，也能交互？</p>
+  <!-- 下面的会在2s后返回 -->
+  <script src="blocked-js.js"></script>
+  <div class="box">
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+  </div>
+  <img src="./defi.png" alt="">
+</body>
+<script src="index.js"></script>
+<script>
+  window.onload = function () {
+    // while(true) {
+    //   console.log(1)
+    // }
+  }
+</script>
+</html>

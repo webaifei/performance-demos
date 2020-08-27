@@ -13,6 +13,14 @@ app.use(async (ctx, next)=> {
   if(ctx.path === '/fp.css') {
     await utils.sleep(2000);
   }
+  // blocked js load
+  if(ctx.path === '/blocked-js.js') {
+    await utils.sleep(2000);
+  }
+  // blocked CSS load
+  if(ctx.path === '/blocked-css.css') {
+    await utils.sleep(2000);
+  }
   await next();
 })
 app.use(serve(path.resolve(__dirname, 'templates')));

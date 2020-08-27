@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>渲染过程中-compositor</title>
+  <script>
+
+  </script>
+  <style>
+    body {
+      background: #ccc;
+    }
+    .box {
+      transform: translate3d(0, 0 ,0);
+    }
+  </style>
+</head>
+<body>
+  <link rel="stylesheet" href="./fp.css">
+  <p class="title">滚动交互可以被合成线程接收，及时页面阻塞，也能交互？</p>
+  <div class="box">
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+    <p>1111</p>
+  </div>
+  <img src="./defi.png" alt="">
+</body>
+<script src="index.js"></script>
+<script>
+  window.onload = function () {
+    // while(true) {
+    //   console.log(1)
+    // }
+  }
+</script>
+</html>
