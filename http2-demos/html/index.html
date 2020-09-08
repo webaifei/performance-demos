@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>http2测试</title>
+</head>
+<body>
+  <p class="res"></p>
+  <div id="app"></div>
+</body>
+<script>
+  const num = location.search.match(/(\?|&)count=(\d+)/)[2];
+  const $app = document.querySelector('#app');
+  const $res = document.querySelector('.res');
+  console.log("num", num)
+  const fragment =document.createDocumentFragment();
+  for (let index = 0; index < num; index++) {
+    const img = document.createElement('img');
+    img.src = `./${num}/${index+1}.jpeg`;
+    fragment.appendChild(img);
+  }
+  $app.appendChild(fragment);
+  const startTime = Date.now();
+  window.addEventListener('load', ()=> {
+    const spentTime = (Date.now() - startTime)/1000;
+    $res.innerHTML = `http2：加载了${num}张图片，花费了${spentTime}s!`;
+  }, false)
+</script>
+</html>
