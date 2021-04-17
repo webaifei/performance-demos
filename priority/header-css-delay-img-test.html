@@ -1,0 +1,1297 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>css 加载会阻塞img加载吗？</title>
+    <meta name='keywords' content='比特币是什么,比特币区块链策略讲解,欧易OKEx学院官网'>
+    <meta name='description' content='欧易OKEx学院是聚合区块链知识、比特币等数字货币现货,合约交易策略、每日行情价格分析及主流币种介绍的网站.解决新手学习区块链知识,如何购买交易比特币,k线行情分析等问题.
+'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+    <link rel="preconnect" href="https://static.coinall.ltd/">
+    <link rel="preconnect" href="https://www.googletagmanager.com/">
+    <link rel="preconnect" href="https://www.google-analytics.com/">
+    <link rel="dns-prefetch" href="https://static.coinall.ltd/">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com/">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com/">
+    <link rel="dns-prefetch" href="//videos.files.wordpress.com">
+	    
+
+    <link rel="shortcut icon" href="//static.coinall.ltd/cdn/assets/imgs/MjAyMDM/D91A7323087D31A588E0D2A379DD7747.png"  type="image/png"/>
+    <link rel="stylesheet" type="text/css" href="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/font/commonFont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/nav/index.css">
+    <link rel="stylesheet" type="text/css" href="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/global/index.css">
+
+    <link rel='stylesheet' type='text/css' href='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/css/banner.css'>
+    <link rel='stylesheet' type='text/css' href='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/css/iconfont.css'>
+    <script>
+        function fz(obj, prop, value) {Object.defineProperty(obj, prop, {value: value, writable: false})}
+        fz(window, 'okGlobal', {});fz(window, 'okui', {});
+        var broker = {is: false, id: null, name: "", legal: null, download:{url:{android:null, ios:null}, qrCodeUrl:{android:null, ios:null}}, logo:"https:\/\/static.coinall.ltd", icon:"https:\/\/static.coinall.ltd", relief: null, sec: null};
+        var site = {sign: 'okex', siteName:  broker.is? broker.name : "\u6B27\u6613OKEx", is: {okex: true},seoTitle: false ? "-null" : "\u5168\u7403\u9886\u5148\u7684\u6BD4\u7279\u5E01\u4EA4\u6613\u5E73\u53F0|OKEx.com"};
+        var download={win:"https:\/\/ok-public-hk.oss-cn-hongkong.aliyuncs.com\/upgradeapp\/OKEx_Setup.exe",mac:"https:\/\/ok-public-hk.oss-cn-hongkong.aliyuncs.com\/upgradeapp\/OKEx.dmg"};
+        fz(window.okGlobal, 'site', site);fz(window.okGlobal, 'broker', broker);fz(window.okGlobal, 'locale', "zh_CN");fz(window.okGlobal, 'timestamp', 1618561096083);fz(window.okGlobal, 'ipRegion', "");
+        fz(window.okGlobal, 'langPath', "");fz(window.okGlobal, 'linkToLangUrl', function(url,isNewTab){var l=""+url;isNewTab?window.open(l):window.location.href=l;});fz(window.okGlobal, 'download',download);
+        fz(window.okGlobal, 'cdnBaseUrl', "https:\/\/static.coinall.ltd");fz(window.okGlobal, 'withoutStatistics', true);fz(window.okGlobal, 'envSign', "prod");fz(window.okGlobal, 'innerDomain', "https:\/\/www.okex.win");fz(window.okGlobal, 'isInnerDomain', true);
+        window.okGlobal.isResponsive=false;window.okGlobal.navShowStatus=true;window.okGlobal.isApp=false;window.okGlobal.simulatedStatus="1";fz(window.okGlobal, 'localeMap', JSON.parse("{\"ru_ru\":\"ru\",\"zh_hk\":\"\",\"vi_vn\":\"vi\",\"ko_kr\":\"ko\",\"en_us\":\"\",\"tr_tr\":\"tr\",\"zh_cn\":\"\",\"es_es\":\"es\",\"pt_br\":\"pt\",\"th_th\":\"th\",\"fr_fr\":\"fr\",\"in_id\":\"id\"}"));
+        fz(window.okGlobal, 'versionUrls',{expressway:"https:\/\/static.coinall.ltd\/cdn\/assets\/okfe\/expressway\/0.12.3",seoEx:"https:\/\/static.coinall.ltd\/cdn\/assets\/okfe\/seo-ex\/6.2.119"});
+    </script>
+    <script>
+        var win = window, doc = document, re = /_PF_/, cdnUrl = "https:\/\/static.coinall.ltd",
+            script = '<script type="text/javascript" src="' + cdnUrl + '/cdn/assets/okfe/libs/polyfills/_PF_"><\/script>';
+        win.fetch || doc.write(script.replace(re, 'fetch-polyfill.min.js'));
+        win.Promise && Object.assign && ''.includes && [].includes || doc.write(script.replace(re, 'es6-polyfill.min.js'));
+    </script>
+    <script src="https://static.coinall.ltd/cdn/assets/okfe/util/ont/0.4.46/ont.js"></script>
+    <script src="https://static.coinall.ltd/cdn/assets/okfe/util/monitor/2.4.20/index.js"></script>
+    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/commonImportTop/index.js"></script>
+    <script src="https://static.coinall.ltd/cdn/language/okex/seo_ex/zh_cn/okex_seo_ex_zh_cn.js?v=6.2.119"></script>
+    <script>
+        window.javaweb_locale = "{}";
+    </script>
+    <script>
+        window.okGlobal.isResponsive=true;
+    </script>
+    <script src="//static.coinall.ltd/cdn/assets/okfe/libs/jquery/jquery1.12.4.min.js"></script>
+    <script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/common.js'></script>
+    <script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/banner.js'></script>
+<script type='text/javascript' src='https://static.coinall.ltd/cdn/assets/okfe/libs/jsbridge/index-0.3.8.js'></script>
+    <script type='text/javascript'>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5RX47XK');
+    </script>
+
+    </head>
+
+<body id="body" data-responsive="true">
+<div id="toast" class="hide"><p><i>x</i><span></span></p></div>
+
+    
+    
+        
+    <header id="headerContainer" class="header header-container" data-transparent="false">
+        <div class="header-wrap">
+            <div class="header-main">
+                <a class="logo-wrap" href="/">
+                    <img class="logo-img logo-img-new"
+                         src="https://static.coinall.ltd/cdn/assets/imgs/212/2122E8642CF8B72C.png"
+                         alt="OKEx - 世界领先的区块链数字资产交易平台" title="OKEx">
+                    <span class="simulated-sign" data-lang-key="view.nav.logo.simulated">模拟盘</span>
+                </a>
+                <div class="nav-container" id="navContainer">
+                    <ul class="nav-scroll-box">
+                        <li class="user-no-login">
+                            <a class="passport-btn user-login-btn" data-monitor-tab="user_login"
+                               href="/account/login" data-lang-key="view.home.nav.login">登录</a>
+                            <a class="passport-btn user-register-btn" data-monitor-tab="user_register"
+                               href="/account/register?action=header_register_btn"
+                               data-lang-key="view.home.nav.signUp">注册</a>
+                        </li>
+                        <li class="profile-wrap">
+                            <div class="photo">
+                                <i class="icon iconfont icon-icon_user"></i>
+                            </div>
+                            <div class="person-info">
+                                <div class="info-text user-account"></div>
+                                <div class="info-text user-uuid"></div>
+                            </div>
+                            <div class="logout">
+                                <i class="icon iconfont icon-icon_sign_out"></i>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-user">
+                            <div class="user-info">
+                                <i class="icon iconfont icon-home_user"></i>
+                            </div>
+                            <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            <span class="nav-text user-account-text" data-lang-key="view.home.account">个人中心</span>
+                            <ul class="user-info-extend drop-c-left-align" id="userWrapList">
+                                <li class="user-info-item">
+                                    <span id="userAccount" class="user-account"></span>
+                                    <span class="user-level">
+                                        <span class="sub-tag-wrap">
+                                            <span class="sub-tag" data-lang-key="view.open.login.type.sub">子账户</span>
+                                        </span>
+                                    </span>
+                                </li>
+                                <p class="line"></p>
+                                <li>
+                                    <a class="extend-link" data-monitor-account="userInfo" href="/account/users">
+                                        <i class="icon iconfont icon-overview"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.user.overview">总览</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link" data-monitor-account="userSecurity" href="/account/security">
+                                        <i class="icon iconfont icon-anquan"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.user.security">安全中心</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link isSub" data-monitor-account="idIdentity" href="/account/kyc">
+                                        <i class="icon iconfont icon-Verification"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.identity">身份认证</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link" data-monitor-account="preferences" href="/account/setting">
+                                        <i class="icon iconfont icon-pianhao"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.preferences">偏好设置</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link isSub" data-monitor-account="subAccount" href="/account/sub-account">
+                                        <i class="icon iconfont icon-Subaccount"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.subAccount">子账户</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id='userApi' class="extend-link" data-monitor-account="apiSetting" href="/account/my-api">
+                                        <i class="icon iconfont icon-API2"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.API">API</span>
+                                    </a>
+                                </li>
+                                <p class="line"></p>
+                                <li><span class="extend-link logout" data-lang-key="view.home.nav.logout">退出登录</span></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item nav-balance">
+                            <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            <a id="userBalance" class="nav-text user-balance-href nav-balance-text"
+                               href="/balance/overview" data-lang-key="view.home.nav.balance">资产管理</a>
+                            <span class="nav-text user-balance-text nav-balance-text" data-lang-key="view.home.nav.balance">资产管理</span>
+                            <ul class="user-info-extend drop-c-left-align">
+                                <li>
+                                    <a class="extend-link item-asset" data-monitor-balance="myBalance" href="/balance/overview">
+                                        <i class="icon iconfont icon-zichan"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.my.balance">我的资产</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link item-recharge isSub" data-monitor-balance="rechargeCoin" href="/balance/recharge">
+                                        <i class="icon iconfont icon-deposit"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.deposit">充币 </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link item-withdrawal isSub" data-monitor-balance="withdrawCoin" href="/balance/withdrawal">
+                                        <i class="icon iconfont icon-ti"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.withdraw">提币</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link item-transfer" data-monitor-balance="transfer" href="/balance/transfer">
+                                        <i class="icon iconfont icon-hua"></i>
+                                        <span class="link-text" data-lang-key="view.act.ett31">资金划转</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link item-report" data-monitor-balance="report" href="/balance/report-center/classic/account">
+                                        <i class="icon iconfont icon-orderCenter"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.balance.report">订单中心</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="extend-link item-fee isSub" data-monitor-account="poundage" href="/balance/fee">
+                                        <i class="icon iconfont icon-feeshouxufei"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.fee.mine">我的手续费</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <p class="extend-link item-simulated" id="toSimulated" data-monitor-balance="simulated">
+                                        <i class="icon iconfont icon-monijiaoyi"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.simulated">开始模拟交易</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="extend-link item-real" id="toRealTrade" data-monitor-balance="realTrade">
+                                        <i class="icon iconfont icon-monijiaoyi"></i>
+                                        <span class="link-text" data-lang-key="view.home.nav.realTrade">切换至实盘交易</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="header-line"></li>
+                        <li class="nav-item nav-buy isSub">
+                            <a class="nav-link" data-key="/buy-crypto/cny" data-monitor-tab="otc"
+                               href="/buy-crypto/cny" data-lang-key="view.home.nav.buy.crypto">买币</a>
+                            
+                        </li>
+                        <li class="nav-item nav-market">
+                            <a id="marketList" class="nav-link" data-key="/markets" data-monitor-tab="market"
+                               href="/markets" data-lang-key="view.home.nav.chart">行情</a>
+                        </li>
+                        <li class="nav-item nav-trade nav-has-next" id="trade">
+                            <span class="tab nav-text" id="tradeLabel" data-lang-key="view.home.nav.all.trade">交易</span>
+                            <span id="spotArrow" class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            <div class="user-info-extend drop-c-left-align">
+                                <div id="systemTab" class="systemTab">
+                                    <div id="newTab" date-id="2" class="item-tab active">
+
+                                        <span class="tab-text" data-lang-key="view.home.nav.trade.unified">统一账户模式</span>
+                                        <span class="rectangle rectangle-right"></span>
+                                    </div>
+                                    <div id="oldTab" date-id="1" class="item-tab">
+                                        <span class="rectangle rectangle-left"></span>
+                                        <span class="tab-text" data-lang-key="view.home.nav.trade.classic">经典账户模式</span>
+                                        <span class="rectangle rectangle-right"></span>
+                                    </div>
+                                </div>
+                                <div id="newSystem" class="info-extend-box new-system-box">
+                                    <a class="item-title title-ms" href="/trade-spot"
+                                       data-lang-key="view.home.nav.trade.unified">统一账户模式</a>
+                                    <div class="new-desc-pc">
+                                        <span class="icon-img icon_unified"></span>
+                                        <div class="item-title title-pc" data-lang-key="view.home.nav.trade.unified">统一账户模式</div>
+                                        <div class="item-desc">
+                                                <span class="desc" data-lang-key="view.home.nav.trade.unified.desc">一个账户即可同时交易币币、杠杆、交割、永续和期权</span>
+                                        </div>
+                                        <div id="openNewTrade" class="item-button" data-href="/trade-spot">
+                                                <span data-lang-key="view.home.nav.trade.unified.button">前往交易</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="trade-line"></div>
+                                <div id="oldSystemTrade" class="info-extend-box old-system-box">
+                                    <div class="tab-ms" data-lang-key="view.home.nav.trade.classic">经典账户模式</div>
+                                    <dl class="extend-box">
+                                        <h2 class="box-title" data-lang-key="view.home.nav.trade.title1">币币</h2>
+                                        <div id="loginSimpleSpot" data-monitor-tab="loginSimpleSpot"
+                                             class="box-item item-spot" data-href="/spot/trade">
+                                            <span class="icon-img icon_spot"></span>
+                                            <div class="item-box">
+                                                <a id="titleSpot" class="item-title title-ms" href="/spot/trade"
+                                                   data-link="/spot/trade" data-lang-key="view.home.nav.trade.spot">币币交易</a>
+                                                <dt class="item-title title-pc" data-link="/spot/trade"
+                                                    data-lang-key="view.home.nav.trade.spot">币币交易</dt>
+                                                <dd class="desc-box header-trade-desc-box">
+                                                    <p class="desc" data-lang-key="view.home.nav.trade.spot.desc">用比特币、USDT购买其他数字资产</p>
+                                                    <div class="item-link">
+                                                        <a class="link" id="spBasic" data-monitor-link="spot_trade"
+                                                           href="/spot/trade"
+                                                           data-lang-key="view.home.nav.trade.basic">简约交易</a>
+                                                        <span class="split-line"></span>
+                                                        <a class="link" id="spPro" data-monitor-link="spot_full"
+                                                           href="/spot/full" target="_blank"
+                                                           data-lang-key="view.home.nav.trade.advanced">全屏交易</a>
+                                                    </div>
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <div id="loginComplexSpot" data-monitor-tab="loginComplexSpot"
+                                             class="box-item item-margin" data-href="/spot/margin-trade">
+                                            <span class="icon-img icon_margin"></span>
+                                            <div class="item-box">
+                                                <a id="titleMargin"
+                                                   class="item-title title-ms"
+                                                   href="/spot/margin-trade"
+                                                   data-link="/spot/margin-trade"
+                                                   data-lang-key="view.home.nav.trade.margin">杠杆交易</a>
+                                                <dt class="item-title title-pc" data-link="/spot/margin-trade"
+                                                    data-lang-key="view.home.nav.trade.margin">杠杆交易</dt>
+                                                <dd class="desc-box header-trade-desc-box">
+                                                    <span class="desc" data-lang-key="view.home.nav.trade.margin.desc">向平台借币交易，放大收益和风险</span>
+                                                    <div class="item-link">
+                                                        <a class="link" id="mgBasic" data-monitor-link="margin_trade"
+                                                           href="/spot/margin-trade"
+                                                           data-lang-key="view.home.nav.trade.basic">简约交易</a>
+                                                        <span class="split-line"></span>
+                                                        <a class="link" id="mgPro" data-monitor-link="margin_full"
+                                                           href="/spot/full-margin" target="_blank"
+                                                           data-lang-key="view.home.nav.trade.advanced">全屏交易</a>
+                                                    </div>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        
+                                    </dl>
+                                    <dl class="extend-box">
+                                        <h2 class="box-title" data-lang-key="view.home.nav.trade.title2">合约</h2>
+                                        <div id="loginComplexFuture" data-monitor-tab="loginComplexFuture"
+                                             class="box-item item-swap" data-href="/derivatives/swap">
+                                            <span class="icon-img icon_swap"></span>
+                                            <div class="item-box">
+                                                <a id="titleSwap" class="item-title title-ms"
+                                                   href="/derivatives/swap"
+                                                   data-link="/derivatives/swap" data-lang-key="view.home.nav.trade.swap">永续合约</a>
+                                                <dt class="item-title title-pc" data-link="/derivatives/swap"
+                                                    data-lang-key="view.home.nav.trade.swap">永续合约</dt>
+                                                <dd class="desc-box header-trade-desc-box">
+                                                    <span class="desc" data-lang-key="view.home.nav.trade.swap.desc">操作简单，最高百倍杠杆</span>
+                                                    <div class="item-link">
+                                                        <a class="link" id="ppBasic" data-monitor-link="swap_trade"
+                                                           href="/derivatives/swap"
+                                                           data-lang-key="view.home.nav.trade.basic">简约交易</a>
+                                                        <span class="split-line"></span>
+                                                        <a class="link" id="ppPro" data-monitor-link="swap_full"
+                                                           href="/derivatives/swap/full"
+                                                           target="_blank" data-lang-key="view.home.nav.trade.advanced">全屏交易</a>
+                                                    </div>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                        <div id="loginSimpleFuture" data-monitor-tab="loginSimpleFuture"
+                                             class="box-item item-futures" data-href="/derivatives/futures">
+                                            <span class="icon-img icon_futures"></span>
+                                            <div class="item-box">
+                                                <a id="titleFutures" class="item-title title-ms"
+                                                   href="/derivatives/futures"
+                                                   data-link="/derivatives/futures"
+                                                   data-lang-key="view.home.nav.trade.futures">交割合约</a>
+                                                <dt class="item-title title-pc" data-link="/derivatives/futures"
+                                                    data-lang-key="view.home.nav.trade.futures">交割合约</dt>
+                                                <dd class="desc-box header-trade-desc-box">
+                                                    <span class="desc" data-lang-key="view.home.nav.trade.futures.desc">套期保值，多空双向盈利</span>
+                                                    <div class="item-link">
+                                                        <a class="link" id="jgBasic" data-monitor-link="futures_trade"
+                                                           href="/derivatives/futures"
+                                                           data-lang-key="view.home.nav.trade.basic">简约交易</a>
+                                                        <span class="split-line"></span>
+                                                        <a class="link" id="jgPro" data-monitor-link="futures_full"
+                                                           href="/derivatives/futures/full"
+                                                           target="_blank" data-lang-key="view.home.nav.trade.advanced">全屏交易</a>
+                                                    </div>
+                                                </dd>
+                                            </div>
+                                        </div>
+
+                                        <div id="loginOptionFuture" data-monitor-tab="loginOptionFuture"
+                                             class="box-item item-options" data-href="/derivatives/options">
+                                            <span class="icon-img icon_option"></span>
+                                            <div class="item-box">
+                                                <a id="titleOptions" class="item-title title-ms"
+                                                   href="/derivatives/options"
+                                                   data-link="/derivatives/options"
+                                                   data-lang-key="view.home.nav.trade.options">期权合约</a>
+                                                <dt class="item-title title-pc" data-link="/derivatives/options"
+                                                    data-lang-key="view.home.nav.trade.options">期权合约</dt>
+                                                <dd class="desc-box header-trade-desc-box">
+                                                    <span class="desc" data-lang-key="view.home.nav.trade.options.desc">有限风险，无限收益</span>
+                                                    <div class="item-link">
+                                                        <a class="link" id="opBasic" data-monitor-link="options_trade"
+                                                           href="/derivatives/options"
+                                                           data-lang-key="view.home.nav.trade.basic">简约交易</a>
+                                                        <span class="split-line"></span>
+                                                        <a class="link" id="opPro" data-monitor-link="options_full"
+                                                           href="/derivatives/options/instruments"
+                                                           target="_blank" data-lang-key="view.home.nav.option.advanced">专业交易</a>
+                                                    </div>
+                                                </dd>
+                                            </div>
+                                        </div>
+                                    </dl>
+                                </div>
+                                <div id="newSystemTrade" class="info-extend-box only-new-box">
+                                    <div class="extend-box">
+                                        <a href="/trade-spot" class="box-item">
+                                            <span class="icon-img icon_spot"></span>
+                                            <div class="item-box">
+                                                <p class="item-title" data-lang-key="view.home.nav.trade.tradeNew.basic.title">基础交易</p>
+                                                <div class="desc-box">
+                                                    <p class="desc"data-lang-key="view.home.nav.trade.tradeNew.basic.desc">币币、期权简选</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="/trade-swap" class="box-item">
+                                            <span class="icon-img icon_margin"></span>
+                                            <div class="item-box">
+                                                <p class="item-title" data-lang-key="view.home.nav.trade.tradeNew.margin.title">杠杆合约交易</p>
+                                                <div class="desc-box">
+                                                    <p class="desc" data-lang-key="view.home.nav.trade.tradeNew.margin.desc">杠杆、永续、交割及期权交易</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item nav-earn nav-has-next">
+                            <span class="tab nav-text" id="financeNav" data-lang-key="view.home.nav.finance.title">金融业务</span>
+                            <span id="financeArrow" class="user-arrow"><i
+                                    class="icon iconfont icon-ic_arrow"></i></span>
+                            <div class="user-info-extend drop-c-left-align">
+                                <div class="info-extend-box">
+                                    <dl class="extend-box extend-small-box">
+                                        <a class="box-item" data-monitor-more="earn" href="/earn">
+                                            <i class="icon iconfont icon-zhuanbi"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.earn.title">赚币</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="financeLoan"
+                                           href="/loan">
+                                            <i class="icon iconfont icon-jiedai"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.finance.loan">借贷</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreJumpstart"
+                                           href="/jumpstart">
+                                            <i class="icon iconfont icon-jumpstart"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.jumpstart">Jumpstart</dt>
+                                            </div>
+                                        </a>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-academy">
+                            <a class="nav-link" data-monitor-tab="moreAcademy"
+                               href="/academy/zh"
+                               data-lang-key="view.home.nav.academy.title">学院</a>
+                        </li>
+                        <li class="nav-item nav-more nav-has-next">
+                            <span class="tab nav-text" id="futureNav" data-lang-key="view.home.nav.activity.more">更多</span>
+                            <span id="futureArrow" class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            <div class="user-info-extend drop-c-left-align">
+                                <div class="info-extend-box">
+                                    <dl class="extend-box extend-small-box">
+                                        <h2 class="box-title" data-lang-key="view.home.nav.more.title1">产品</h2>
+                                        <a class="box-item" data-monitor-more="dropPool"
+                                           href="/pool">
+                                            <i class="icon iconfont icon-pool"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.pool.navTitle">矿池</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="crossChainGateway"
+                                           href="/cross-chain-gateway">
+                                            <i class="icon iconfont icon-kualianwangguan"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.crossChain">OKEx Bridge</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreSafeBox"
+                                           href="/wallet">
+                                            <i class="icon iconfont icon-Wallet"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.safeBox.actTitle">链上钱包</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreOkb" href="/okb">
+                                            <i class="icon iconfont icon-okb"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info">OKB</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreOpenExchange"
+                                           href="/cloud">
+                                            <i class="icon iconfont icon-cloud"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.open">OKEx云</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="morewalletSecurity"
+                                           href="/wallet-security">
+                                            <i class="icon iconfont icon-zijinanquan"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.wallet.security">资金安全</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" id="moreOKChain" data-monitor-more="moreOKChain"
+                                           href="/okexchain">
+                                            <i class="icon iconfont icon-okchain"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.okchain">OKExChain</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" id="moreStatus" data-monitor-more="moreStatus"
+                                           href="/status">
+                                            <i class="icon iconfont icon-status"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.resources.status">Status</dt>
+                                            </div>
+                                        </a>
+                                    </dl>
+
+                                    <dl class="extend-box extend-small-box">
+                                        <h2 class="box-title" data-lang-key="view.home.nav.more.title3">其他</h2>
+                                        <a class="box-item" data-monitor-more="moreRewards"
+                                           href="/rewards">
+                                            <i class="icon iconfont icon-rewards"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.rewards">福利中心</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreInvite"
+                                           href="/referral">
+                                            <i class="icon iconfont icon-yaoqinghaoyou"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.inviteFriends">邀请好友</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreAffiliates"
+                                           href="/affiliates">
+                                            <i class="icon iconfont icon-Affiliates"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.affiliates">合伙人</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="moreFreebitcoin"
+                                           href="/freebitcoin">
+                                            <i class="icon iconfont icon-freebtc"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.resources.freebitcoin">免费比特币</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="happyFriday"
+                                           href="/happyfriday">
+                                            <i class="icon iconfont icon-happyFriday"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.happyFriday">快乐星期五</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="MoreBroker"
+                                           href="/broker">
+                                            <i class="icon iconfont icon-Brokern"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.broker.navTitle">经纪商</dt>
+                                            </div>
+                                        </a>
+                                        <a class="box-item" data-monitor-more="blockDreamVentures"
+                                           href="/blockdream-ventures">
+                                            <i class="icon iconfont icon-ventures8"></i>
+                                            <div class="item-box">
+                                                <dt class="item-info" data-lang-key="view.home.nav.blockDreamVentures">Blockdream Ventures</dt>
+                                            </div>
+                                        </a>
+                                    </dl>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-null"></li>
+                        
+                        <li class="header-search-box" id="headerSearchBox"></li>
+
+                        <li class="nav-download other-wrap ">
+                            <div class="download-app">
+                                <i class="icon iconfont icon-home_download"></i>
+                            </div>
+                            <div class="drop-down-list drop-c-right-align">
+                                <div class="download-box">
+                                    <div class="qr-box">
+                                        <p class="qr-code-desc" data-lang-key="view.home.nav.scancode">扫码下载APP</p>
+                                        <div class="img-box">
+                                            <img class="qr-code-img" src="" alt=""/>
+                                        </div>
+                                    </div>
+                                    <div class="pc-box">
+                                        <a class="download-btn" href="/download"
+                                           data-lang-key="view.header.ownload.all">更多客户端</a>
+                                        <p class="download-desc" data-lang-key="view.header.download.desc">手机和桌面客户端</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-notice other-wrap ">
+                            <div class="notice-icon">
+                                <span class="notice-new hide"></span>
+                                <i class="icon iconfont icon-home_notice"></i>
+                            </div>
+                            <div class="drop-down-list drop-c-right-align">
+                                <div class="notice-box">
+                                    <div class="notice-list"></div>
+                                    <a id="moreNews" class="notice-more" target="_blank">
+                                        <span data-lang-key="view.home.nav.morenotice">查看更多</span>
+                                    </a>
+                                </div>
+                                <div class="notice-empty">
+                                    <span class="empty-icon icon_notice_empty"></span>
+                                    <span class="empty-desc" data-lang-key="view.home.nav.noticeEmpty">暂无公告内容</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-custom other-wrap">
+                            <div class="custom-logo">
+                                <i class="icon iconfont icon-home_support1"></i>
+                            </div>
+                            <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            <span class="nav-text user-support-text" data-lang-key="view.resources.title">支持</span>
+                            <ul class="drop-down-list drop-c-right-align">
+                                <li><a class="extend-link" href="/support-center.html"
+                                       data-lang-key="view.home.nav.support.center">帮助中心</a></li>
+                                <li id="navOnLine" class="extend-link hide-link link-contact-service click-disable"
+                                    data-lang-key="view.home.nav.contact.online">联系客服</li>
+                                <li><a id="navSupport" class="extend-link hide-link link-problem-feedback"
+                                       href="/account/users/support"
+                                       data-lang-key="view.home.nav.support">问题反馈</a>
+                                </li>
+                                <li><a id="feedbackCenterLink" class="extend-link feedback-center"
+                                       href="/feedback/" data-lang-key="view.security.navTitle">Bug报告</a></li>
+                                <li class="community-link">
+                                    <a class="extend-link" href="/community">
+                                        <span data-lang-key="view.home.nav.community">社区</span>
+                                        <i class="icon iconfont icon-wechat2"></i>
+                                        <div class="wechat-box" id="headChatBox">
+                                            <img id="headChatImg" src=""/>
+                                            <p class="qr-code-desc" data-lang-key="view.home.nav.community.qrCodeDesc">使用微信扫一扫</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-language other-wrap">
+                            <div class="now-language">
+                                <i class="icon iconfont icon-qiepian1"></i>
+                            </div>
+                            <div class="language-list">
+                                <div class="ul-box" id="headerLanguageList"></div>
+                                <div class="ul-box" id="headerCurrencyList"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-mobile-download" id="mobileDownloadNav"></li>
+                    </ul>
+                </div>
+                
+                <div class="user-no-login-container">
+                    <a class="passport-btn user-register-btn" data-monitor-tab="user_register"
+                       href="/account/register?action=header_register_btn"
+                       data-lang-key="view.home.nav.signUp">注册</a>
+                    <a class="passport-btn user-login-btn" data-monitor-tab="user_login"
+                       href="/account/login" data-lang-key="view.home.nav.login">登录</a>
+                </div>
+                <div class="action-container">
+                    <div class="header-menu-btn" id="headerMenuBtn">
+                        <i class="icon iconfont icon-icon_hambergur"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    
+    
+
+<div class="menu-header"><ul id="menu-leftmenu" class="menu"><li id="menu-item-1337" class="pll-parent-menu-item menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1337"><a href="#pll_switcher">简体中文</a>
+<ul class="sub-menu">
+	<li id="menu-item-1337-en" class="lang-item lang-item-688667052 lang-item-en lang-item-first menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-en"><a href="https://www.okex.win/academy/en/" hreflang="en-US" lang="en-US">English</a></li>
+	<li id="menu-item-1337-th" class="lang-item lang-item-688670057 lang-item-th menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-th"><a href="https://www.okex.win/academy/th/" hreflang="th" lang="th">ภาษาไทย</a></li>
+	<li id="menu-item-1337-id" class="lang-item lang-item-688670060 lang-item-id menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-id"><a href="https://www.okex.win/academy/id/" hreflang="id-ID" lang="id-ID">Indonesia</a></li>
+	<li id="menu-item-1337-es" class="lang-item lang-item-688670063 lang-item-es menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-es"><a href="https://www.okex.win/academy/es/" hreflang="es-ES" lang="es-ES">Español</a></li>
+	<li id="menu-item-1337-tr" class="lang-item lang-item-688670066 lang-item-tr menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-tr"><a href="https://www.okex.win/academy/tr/" hreflang="tr-TR" lang="tr-TR">Türkçe</a></li>
+	<li id="menu-item-1337-pt" class="lang-item lang-item-688670653 lang-item-pt menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-pt"><a href="https://www.okex.win/academy/pt/" hreflang="pt-BR" lang="pt-BR">Português</a></li>
+</ul>
+</li>
+</ul></div><script language="javascript" >
+    $('.menu-header')[0].remove();
+    $('.header-wrap').css('background', 'linear-gradient(5deg, #101a3c 0%, #070d23 100%)');
+</script>
+<section class="main-academy-content">
+
+     <div class="banner-top-change">
+  <ul class="banner-click-change">
+              <li data-ac-monitor=buy class="change-item change-li-0"><div data-tab="li-0" class="item-img item-img-0"><p data-tab="li-0">1分钟购买一笔比特币</p></div>        </li>
+                  <li data-ac-monitor=spot class="change-item change-li-1"><div data-tab="li-1" class="item-img item-img-1"><p data-tab="li-1">秒懂币币交易</p></div>        </li>
+                  <li data-ac-monitor=futures class="change-item change-li-2"><div data-tab="li-2" class="item-img item-img-2"><p data-tab="li-2">合约交易入门</p></div>        </li>
+                  <li data-ac-monitor=option class="change-item change-li-3"><div data-tab="li-3" class="item-img item-img-3"><p data-tab="li-3">如何进行期权交易</p></div>        </li>
+              </ul>
+  </div>
+     <div class="headerphoto">
+<div class="banner-container">
+     <div class="banner-wrapper">
+                <!-- banner-tab-start -->
+         <div class="banner-tab current-li-0" data-hash=buy-bitcoin>            <!-- banner-message-start -->
+            <div class="banner-message">
+            <p class="input-0"></p>            <h2 class="banner-title">1分钟购买一笔比特币</h2>
+            
+<h4>注册 欧易OKEx</h4>
+
+
+
+<p>访问欧易OKEx网站，并注册属于您的欧易OKEx账号</p>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container">
+<h4>实名认证 </h4>
+
+
+
+<p>上传有效证件，进行个人实名认证</p>
+</div></div>
+
+
+
+<h4>一键购买并支付款项</h4>
+
+
+
+<p>在首页/买币页面一键买币，支付完成后等待放币</p>
+
+
+
+<p class="banner-link"><a class="monitor-link" data-ac-monitor="buy" rel="nofollow noopener noreferrer" href="/otc/shortcutTrade" data-type="otc">马上去交易</a></p>
+                </div>
+                 <!-- banner-message-end -->
+
+                 <!-- banner-video-start -->
+                <div class="banner-video video-list-1">                            <figure class="wp-block-video">
+                                <video
+                                    controls
+                                    preload="none"
+                                    controlsList="nodownload"
+                                    webkit-playsinline
+                                    playsinline
+                                    x-webkit-airplay="allow"
+                                    x5-video-player-type="h5"
+                                    x5-video-player-fullscreen="true"
+                                    x5-video-orientation="portraint"
+                                    style="object-fit:fill"
+                                    onplay="window.acVideoClickPlay('buy')"
+                                    poster="https://static.coinall.ltd/cdn/assets/imgs/206/1A1232B8B59D31C1.png"
+                                    src="https://static.coinall.ltd/cdn/assets/files/206/D3AF4D697E3EA4DA.mp4">
+                                </video>
+                            </figure>
+                        </div>
+                 <!-- banner-video-end -->
+              </div>
+          <!-- banner-tab-end -->
+                   <!-- banner-tab-start -->
+         <div class="banner-tab banner-hide current-li-1" data-hash=spot-trading>            <!-- banner-message-start -->
+            <div class="banner-message">
+            <p class="input-1"></p>            <h2 class="banner-title">秒懂币币交易</h2>
+            
+<h4>选择交易兑 </h4>
+
+
+
+<p>选择需要购买的交易兑（币兑币交易就是指用一种数字资产去兑换另一种数字资产）</p>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container">
+<h4>查看价格 </h4>
+
+
+
+<p>看市场成交价格，选择合适价格下单</p>
+</div></div>
+
+
+
+<h4>填写订单后点击买入</h4>
+
+
+
+<p>填写买入价和买入量，等待市场成交。</p>
+
+
+
+<p class="banner-link"><a class="monitor-link" data-ac-monitor="spot" rel="nofollow noopener noreferrer" href="/spot/trade" data-type="spot">马上去交易</a></p>
+
+
+
+<p></p>
+                </div>
+                 <!-- banner-message-end -->
+
+                 <!-- banner-video-start -->
+                <div class="banner-video video-list-2">                            <figure class="wp-block-video">
+                                <video
+                                    controls
+                                    preload="none"
+                                    controlsList="nodownload"
+                                    webkit-playsinline
+                                    playsinline
+                                    x-webkit-airplay="allow"
+                                    x5-video-player-type="h5"
+                                    x5-video-player-fullscreen="true"
+                                    x5-video-orientation="portraint"
+                                    style="object-fit:fill"
+                                    onplay="window.acVideoClickPlay('spot')"
+                                    poster="https://static.coinall.ltd/cdn/assets/imgs/MjAyMDM/D315E480A7F429BB7F47AE886023B80B.png"
+                                    src="https://static.coinall.ltd/cdn/assets/files/206/F95F7CC51C8BC942.mp4">
+                                </video>
+                            </figure>
+                        </div>
+                 <!-- banner-video-end -->
+              </div>
+          <!-- banner-tab-end -->
+                   <!-- banner-tab-start -->
+         <div class="banner-tab banner-hide current-li-2" data-hash=trade-futures>            <!-- banner-message-start -->
+            <div class="banner-message">
+            <p class="input-2"></p>            <h2 class="banner-title">合约交易入门</h2>
+            
+<h4>选择合约类型 </h4>
+
+
+
+<p>目前欧易OKEx提供四种合约类型，分别是：当周，次周，当季、次季。</p>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container">
+<h4>用户选择合适的价格与数量成交。</h4>
+
+
+
+<p>只有账户权益大于等于交易成功后保证金的数量，用户才能进行委托操作。</p>
+</div></div>
+
+
+
+<h4>持仓或平仓 </h4>
+
+
+
+<p>成交后，则用户持有对应多空方向的仓位。（平多/平空）获取收益</p>
+
+
+
+<p class="banner-link"> <a class="monitor-link" data-ac-monitor="futures" rel="nofollow noopener noreferrer" href="/derivatives/futures" data-type="futures">马上去交易</a></p>
+                </div>
+                 <!-- banner-message-end -->
+
+                 <!-- banner-video-start -->
+                <div class="banner-video video-list-3">                            <figure class="wp-block-video">
+                                <video
+                                    controls
+                                    preload="none"
+                                    controlsList="nodownload"
+                                    webkit-playsinline
+                                    playsinline
+                                    x-webkit-airplay="allow"
+                                    x5-video-player-type="h5"
+                                    x5-video-player-fullscreen="true"
+                                    x5-video-orientation="portraint"
+                                    style="object-fit:fill"
+                                    onplay="window.acVideoClickPlay('futures')"
+                                    poster="https://static.coinall.ltd/cdn/assets/imgs/MjAyMDM/C7DBA693E118264EEF4DE3BEB981540F.png"
+                                    src="https://static.coinall.ltd/cdn/assets/files/206/1B8F6ADAD4858C28.mp4">
+                                </video>
+                            </figure>
+                        </div>
+                 <!-- banner-video-end -->
+              </div>
+          <!-- banner-tab-end -->
+                   <!-- banner-tab-start -->
+         <div class="banner-tab banner-hide current-li-3" data-hash=trade-options>            <!-- banner-message-start -->
+            <div class="banner-message">
+            <p class="input-3"></p>            <h2 class="banner-title">如何进行期权交易</h2>
+            
+<h4>开通期权合约账户 </h4>
+
+
+
+<p>首次交易前，点击页面中“开通期权合约交易”按钮开始答题，完成答题后方可开通期权合约账户。</p>
+
+
+
+<div class="wp-block-group"><div class="wp-block-group__inner-container">
+<h4>选择期权交易类型</h4>
+
+
+
+<p>选择自己适合的“看涨”或“看跌”期权，然后在合约表中选择合适执行价格的合约进行买入或卖出。</p>
+</div></div>
+
+
+
+<h4>填写价格和数量下单</h4>
+
+
+
+<p>在交易页面填写您想交易的价格和数量，点击“买入”或“卖出”下单完成交易。</p>
+
+
+
+<p class="banner-link"><a class="monitor-link" data-ac-monitor="option" href="/derivatives/options" data-type="options">马上去交易</a></p>
+                </div>
+                 <!-- banner-message-end -->
+
+                 <!-- banner-video-start -->
+                <div class="banner-video video-list-4">                            <figure class="wp-block-video">
+                                <video
+                                    controls
+                                    preload="none"
+                                    controlsList="nodownload"
+                                    webkit-playsinline
+                                    playsinline
+                                    x-webkit-airplay="allow"
+                                    x5-video-player-type="h5"
+                                    x5-video-player-fullscreen="true"
+                                    x5-video-orientation="portraint"
+                                    style="object-fit:fill"
+                                    onplay="window.acVideoClickPlay('option')"
+                                    poster="https://static.coinall.ltd/cdn/assets/imgs/MjAyMDM/FD29EC51310371EE97A7F6D731DEB311.png"
+                                    src="https://static.coinall.ltd/cdn/assets/files/206/91F2B37DDAE4E536.mp4">
+                                </video>
+                            </figure>
+                        </div>
+                 <!-- banner-video-end -->
+              </div>
+          <!-- banner-tab-end -->
+               </div>
+   </div>
+</div>
+
+
+<section class="pop-message-box">
+    <div class="pop-container">
+        <div class="pop-content">
+            <div class="close-box"><span class="icon iconfont icon-icon_close"></span></div>
+            <span class="ok-logo"></span>
+            <h4>打开欧易OKEx</h4>
+            <p>全面支持ios、Android、Mac、Windows系统。下载客户端，随时随地开启您的交易。</p>
+            <button class="download"><a href="/download">下载欧易OKEx</a></button>
+            <button class="go-app"><a>我已安装欧易OKEx</a></button>
+        </div>
+    </div>
+</section>
+
+<div id="sidebar" class="okg" >
+    <div class="three-category">
+        <div class="cat-title">
+                            <h2>
+                                <a class="main-category-title monitor-link" data-ac-monitor="1" href="https://www.okex.win/academy/zh/category/beginners-tutorial" >新手教程</a>
+                            </h2><a class="learn-more monitor-link" data-ac-monitor="1" href="https://www.okex.win/academy/zh/category/beginners-tutorial">查看更多</a>
+                        </div>            <ul class="post-content">
+                                    <li class="article-monitor-link" data-ac-monitor=11>
+                        <a href="https://www.okex.win/academy/zh/okex-app-download-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2021/01/0911506.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>如何下载欧易OKEx APP</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=12>
+                        <a href="https://www.okex.win/academy/zh/what-is-kyc-verification-how-to-complete-kyc-verification-2-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/01课-英文-1.jpg?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>什么是KYC验证？如何完成KYC验证？（PC）</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=13>
+                        <a href="https://www.okex.win/academy/zh/get-your-first-bitcoin-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/4-15.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>如何使用人民币购买比特币？（PC）</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=14>
+                        <a href="https://www.okex.win/academy/zh/spot-trading-pc-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2021/04/1158414.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>小白用户如何使用币币交易购买比特币（PC）</p></div>                        </a>
+                    </li>
+                    </ul><div class="cat-title">
+                            <h2>
+                                <a class="main-category-title monitor-link" data-ac-monitor="2" href="https://www.okex.win/academy/zh/category/trading-ideas" >交易策略</a>
+                            </h2><a class="learn-more monitor-link" data-ac-monitor="2" href="https://www.okex.win/academy/zh/category/trading-ideas">查看更多</a>
+                        </div>            <ul class="post-content">
+                                    <li class="article-monitor-link" data-ac-monitor=21>
+                        <a href="https://www.okex.win/academy/zh/candlestick-line-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/21课-英文-4.jpg?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>零基础学K线|1 从价格到K线</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=22>
+                        <a href="https://www.okex.win/academy/zh/candlestick-line-and-its-structure-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/22课-英文-2.jpg?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>零基础学K线| 2 单根K线的演变及寓意</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=23>
+                        <a href="https://www.okex.win/academy/zh/various-bullish-candlestick-line-combinations-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/100课-英文.jpg?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>零基础学K线|3 看涨K线组合</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=24>
+                        <a href="https://www.okex.win/academy/zh/bearish-candlestick-patterns-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/101课-英文.jpg?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>零基础学K线| 4 看跌K线组合</p></div>                        </a>
+                    </li>
+                    </ul><div class="cat-title">
+                            <h2>
+                                <a class="main-category-title monitor-link" data-ac-monitor="3" href="https://www.okex.win/academy/zh/category/industry-analysis" >行业研究</a>
+                            </h2><a class="learn-more monitor-link" data-ac-monitor="3" href="https://www.okex.win/academy/zh/category/industry-analysis">查看更多</a>
+                        </div>            <ul class="post-content">
+                                    <li class="article-monitor-link" data-ac-monitor=31>
+                        <a href="https://www.okex.win/academy/zh/okex-intertempora-arbitrage-strategy-research-report-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/43.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>欧易OKEx比特币跨期套利策略研究报告</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=32>
+                        <a href="https://www.okex.win/academy/zh/okex-perpetual-swap-how-does-it-affect-your-trading-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/44@2x.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>欧易OKEx永续合约价格凸性如何影响你的交易？—以比特币为例</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=33>
+                        <a href="https://www.okex.win/academy/zh/trading-strategy-a-handy-trading-strategy-for-gains-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/50.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>比特币期现套利策略报告</p></div>                        </a>
+                    </li>
+                                        <li class="article-monitor-link" data-ac-monitor=34>
+                        <a href="https://www.okex.win/academy/zh/hedge-your-bitcoin-portfolio-2-cn">
+                            <div class='post'><div class='img-box '><img src='https://static.coinall.ltd/cdn/assets/academy/2020/03/47.png?x-oss-process=image/resize,w_576' style='max-width: 100%;' alt='OKEx' title='OKEx'/></div><p>比特币投资组合的风险对冲</p></div>                        </a>
+                    </li>
+                    </ul>    </div>
+<section class="block-content">
+    <div class="cat-title">
+        <h2>
+            <a class='main-category-title monitor-link' data-ac-monitor='4' href='https://www.okex.win/academy/zh/category/blockchain-glossary'>区块链词典</a>        </h2>
+        <a class='learn-more monitor-link' data-ac-monitor='4' href='https://www.okex.win/academy/zh/category/blockchain-glossary'>查看更多</a>    </div>
+
+    <ul class="block-list">
+                    <li class="article-monitor-link" data-ac-monitor=41>
+                <a class="href-content" href="https://www.okex.win/academy/zh/public-blockchain-cn">
+                    <div class='img-box'><img class='block-chain-0' alt='点对点/ Peer-to-Peer' src='https://static.coinall.ltd/cdn/assets/imgs/205/35021D35C3D949FC.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">点对点/ Peer-to-Peer</p>
+                     
+<p>通过允许单个节点与其他节点直接交互，无需通过中介机构，从而实现整个系统像有组 织的集体一样运作的系统。 </p>
+
+
+
+<p></p>
+                 </div>
+                </a>
+            </li>
+                    <li class="article-monitor-link" data-ac-monitor=42>
+                <a class="href-content" href="https://www.okex.win/academy/zh/node-cn-2">
+                    <div class='img-box'><img class='block-chain-1' alt='节点/ Node' src='https://static.coinall.ltd/cdn/assets/imgs/205/3E8AF5702C06B892.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">节点/ Node</p>
+                     
+<p>节点是区块链分布式系统中的网络节点，是通过网络连接的服务器、计算机、电话等， 针对不同性质的区块链，成为节点的方式也会有所不同。以比特币为例，参与交易或挖 矿即构成一个节点。 </p>
+                 </div>
+                </a>
+            </li>
+                    <li class="article-monitor-link" data-ac-monitor=43>
+                <a class="href-content" href="https://www.okex.win/academy/zh/verification-cn">
+                    <div class='img-box'><img class='block-chain-2' alt='验证/ Verification' src='https://static.coinall.ltd/cdn/assets/imgs/205/CD2A71485F38A361.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">验证/ Verification</p>
+                     
+<p>验证是对于交易的一种确认，通过内存块链网络中节点的共识机制，将交易数据在内存块链网络广播并由其他节点确认，即验证该笔交易的合法性。</p>
+                 </div>
+                </a>
+            </li>
+                    <li class="article-monitor-link" data-ac-monitor=44>
+                <a class="href-content" href="https://www.okex.win/academy/zh/trustless-cn">
+                    <div class='img-box'><img class='block-chain-3' alt='去信任/ Trustless' src='https://static.coinall.ltd/cdn/assets/imgs/205/3350B76366170F5A.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">去信任/ Trustless</p>
+                     
+<p>去信任表示使用者不需要相信任何协力厂商。使用者使用去信任的系统或技术处理交易时非常安全和顺畅 ，交易双方都可以安全地交易，而不需要依赖信任的协力厂商。</p>
+                 </div>
+                </a>
+            </li>
+                    <li class="article-monitor-link" data-ac-monitor=45>
+                <a class="href-content" href="https://www.okex.win/academy/zh/leverage-cn">
+                    <div class='img-box'><img class='block-chain-4' alt='杠杆/ Leverage' src='https://static.coinall.ltd/cdn/assets/imgs/205/0A08C1A2AF83F9FF.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">杠杆/ Leverage</p>
+                     
+<p>杠杆是一种常见的金融交易制度，通过保证金制度借入资产进行投资，在可交易金额被放大的同时增加投资者的投资能力、放大投资的结果；但也使投资者获得的收益和承担的风险加大，无论最终的结果是收益还是损失，都会以一个固定的比例增加。</p>
+                 </div>
+                </a>
+            </li>
+                    <li class="article-monitor-link" data-ac-monitor=46>
+                <a class="href-content" href="https://www.okex.win/academy/zh/satoshis-nakamoto-cn">
+                    <div class='img-box'><img class='block-chain-5' alt='中本聪/ Satoshis Nakamoto' src='https://static.coinall.ltd/cdn/assets/imgs/205/0E93015D0476B50F.png'/>                 </div>
+                 <div class="block-message">
+                     <p class="block-title">中本聪/ Satoshis Nakamoto</p>
+                     
+<p>中本聪是比特币的发明人或发明组织，目前身份存疑。“中本聪”也可能仅仅是个化名。 中本聪于 2008 年发表了一篇名为《比特币:一种点对点式的电子现金系统》(Bitcoin: A Peer-to-Peer Electronic Cash System)的论文，描述了一种被称为“比特币”的电子 货币及其算法，被视为是区块链的第一个成功实践。 </p>
+                 </div>
+                </a>
+            </li>
+            </ul>
+</section>
+</div>
+<script>
+    $('.block-list .wp-block-image').remove();
+</script>
+<script>
+  function resizeImg(){
+    const width = $('#sidebar .post .img-box')[1].offsetWidth;
+    $("#sidebar .post .img-box").each(function(){
+      $(this)[0].style.height=width/1.78+'px';
+    })
+  }
+  resizeImg();
+  window.onresize=function(){
+    resizeImg();
+  }
+</script>
+<script>
+   $("img").on("error", function(){
+      if (this.src.indexOf('cdn/assets/academy/') === -1) {
+        return;
+      }
+      const imgSrc = (this.src).match(/academy(\S*)/);
+      if(imgSrc){
+        this.src = "https://www.okex.win/academy/academy/wp-content/uploads"+imgSrc[1];
+      }
+      this.onerror=null;
+   });
+</script>
+<div>
+    
+    
+        
+    <footer id="footerContainer" class="footer-container">
+        <div class="footer-wrap">
+            <div class="footer-main">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img class="img" src="https://static.coinall.ltd/cdn/assets/imgs/212/D051F20AC2562730.png" >
+                    </div>
+                    <div class="list">
+                        <div>
+                            
+                            <p class="icon-down-text" data-lang-key="view.resources.risk"></p>
+                            <p class="copy-info" data-lang-key="view.resources.copyright">©2021 OKEX.COM</p>
+                        </div>
+                    </div>
+                    <div class="all-language-box">
+                        <div id="language" class="now-language">
+                            <i class="icon iconfont icon-qiepian1 lang-box-icon"></i>
+                            <span class="text"></span>
+                            <i class="icon iconfont icon-ic_arrow arrow-icon"></i>
+                        </div>
+                        <div class="language-list">
+                            <div class="ul-box" id="languageList"></div>
+                            <div class="ul-box" id="footerCurrencyList"></div>
+                        </div>
+                    </div>
+                    <div class="icon-list" id="footerMediaH5"></div>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-ul">
+                        <div class="list">
+                            <div class="title-box">
+                                <div class="title" data-lang-key="view.company.title">关于</div>
+                                <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            </div>
+                            <div class="item-box">
+                                <div class="list-item">
+                                    <a class="link" data-monitor="companyAbout" href="/about.html" data-lang-key="view.company.about">关于我们</a>
+                                </div>
+                                <div class="list-item">
+                                    
+                                    <a class="link" data-monitor="companyZhHr" target="_self" href="/join-us" data-lang-key="view.company.hr">职业机会</a>
+                                </div>
+                                <div class="list-item" id="productPress">
+                                    <a class="link" data-monitor="press" href="/academy/zh/category/press" data-lang-key="view.product.link.press">媒体报道</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="title-box">
+                                <div class="title" data-lang-key="view.legal.link.title">法律和隐私</div>
+                                <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            </div>
+                            <div class="item-box">
+                                <div class="list-item">
+                                    <a class="link" data-monitor="privacyTerms" id="termsService" target="_blank" data-lang-key="view.resources.privacyTerms">服务条款</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="privacyStatement" id="privacyService" target="_blank" data-lang-key="view.resources.privacyStatement">隐私保护</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="riskDisclosures" id="riskDisclosures" target="_blank" data-lang-key="view.resources.riskDisclosures">免责声明</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="whistleblowerNotice" href="/support/hc/zh-cn/articles/360044374692" data-lang-key="view.resources.whistleblowerNotice">廉正举报</a>
+                                    
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="lawEnforcement" id="lawEnforcement" target="_blank" data-lang-key="view.company.lawEnforcement">执法请求</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="title-box">
+                                <div class="title" data-lang-key="view.server.title">服务</div>
+                                <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            </div>
+                            <div class="item-box">
+                                <div class="list-item">
+                                    <a class="link" id="footerApi" data-monitor="api" data-lang-key="view.home.nav.api">V3 API接入</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" id="footerApV5" data-monitor="apiv5" href="/docs-v5/zh" data-lang-key="view.home.nav.api5">V5 API接入</a>
+                                    
+                                </div>
+                                <div class="list-item">
+                                    <a class="link simulated-hide" id="footerFee" data-monitor="fee" href="/fees.html" data-lang-key="view.home.nav.fee">费率标准</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" id="companyToken" data-monitor="companyToken" target="_blank" data-lang-key="view.company.token">上币申请</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="announcements" href="/support/hc/zh-cn/categories/115000275131-Announcement" target="_blank" data-lang-key="view.server.Announcements">公告</a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <div class="title-box">
+                                <div class="title" data-lang-key="view.resources.title">支持</div>
+                                <span class="user-arrow"><i class="icon iconfont icon-ic_arrow"></i></span>
+                            </div>
+                            <div class="item-box">
+                                <div class="list-item">
+                                    <a class="link" id="supportCenter" data-monitor="SupportCenter" href="/support-center.html" data-lang-key="view.resources.support.center">帮助中心</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link hide-link link-contact-service click-disable" id="navOnLineFooter" data-lang-key="view.home.nav.contact.online">联系客服</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link hide-link link-problem-feedback" data-monitor="Support" href="/account/users/support" data-lang-key="view.resources.support">问题反馈</a>
+                                </div>
+                                <div class="list-item">
+                                    <a class="link" data-monitor="official" href="/support-center.html#verify" data-lang-key="view.resources.official">官方验证</a>
+                                </div>
+                            </div>
+                            <div class="icon-list" id="footerMedia"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+    <div class="footer-link">
+        <div class="footer-line"></div>
+        <div class="link-line">
+            <a class="site-map" id="siteMap" data-monitor="sitemap" href="/sitemap/cn/index.html" data-lang-key="view.product.link.sitemap">网站地图</a>
+            <span class="title" data-lang-key="view.link.friendlylink">友情链接：</span>
+            
+                
+                
+                    <a class="text" href="https://www.ok.cn" target="_blank">欧科集团</a>
+                    <a class="text" href="https://www.aicoin.cn" target="_blank">AICoin</a>
+                    
+                    <a class="text" href="https://www.coinall.live" target="_blank" data-lang-key="view.link.biquan">币全</a>
+                    <a class="text" href="https://www.chainfor.com" target="_blank" data-lang-key="view.link.linkfanacial">链向财经</a>
+                    <a class="text" href="http://www.btc126.com" target="_blank" data-lang-key="view.link.bitfamily">比特币家园</a>
+                    <a class="text" href="https://www.chainwhy.com" target="_blank" data-lang-key="view.link.lianwai">链外</a>
+                    <a class="text" href="https://www.f2pool.com" target="_blank" data-lang-key="view.link.f2pool">F2Pool鱼池</a>
+                    <a class="text" href="http://www.coinvoice.cn" target="_blank">CoinVoice</a>
+                    <a class="text" href="https://www.99ex.com" target="_blank" data-lang-key="view.link.99ex">99EX</a>
+                    <a class="text" href="https://bbx.vip" target="_blank">BBX</a>
+                    <a class="text" href="https://tiger.cloud" target="_blank" data-lang-key="view.link.tiger.cloud">老虎云</a>
+                    <a class="text" href="https://www.coinfarm.online" target="_blank" data-lang-key="view.link.coinFarm">CoinFarm</a>
+
+                    <a class="text" href="/btchalving" data-lang-key="view.link.btchalving">比特币减半</a>
+                    
+                    
+                
+            
+        </div>
+    </div>
+
+        </div>
+    </footer>
+
+    
+    
+    <link rel='stylesheet' type='text/css' href="./large-css.css"/>
+    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/nav/index.js"></script>
+    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/global/index.js"></script>
+</div>
+
+    <div class="menu-header"><ul id="menu-leftmenu-1" class="menu"><li class="pll-parent-menu-item menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1337"><a href="#pll_switcher">简体中文</a>
+<ul class="sub-menu">
+	<li class="lang-item lang-item-688667052 lang-item-en lang-item-first menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-en"><a href="https://www.okex.win/academy/en/" hreflang="en-US" lang="en-US">English</a></li>
+	<li class="lang-item lang-item-688670057 lang-item-th menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-th"><a href="https://www.okex.win/academy/th/" hreflang="th" lang="th">ภาษาไทย</a></li>
+	<li class="lang-item lang-item-688670060 lang-item-id menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-id"><a href="https://www.okex.win/academy/id/" hreflang="id-ID" lang="id-ID">Indonesia</a></li>
+	<li class="lang-item lang-item-688670063 lang-item-es menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-es"><a href="https://www.okex.win/academy/es/" hreflang="es-ES" lang="es-ES">Español</a></li>
+	<li class="lang-item lang-item-688670066 lang-item-tr menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-tr"><a href="https://www.okex.win/academy/tr/" hreflang="tr-TR" lang="tr-TR">Türkçe</a></li>
+	<li class="lang-item lang-item-688670653 lang-item-pt menu-item menu-item-type-custom menu-item-object-custom menu-item-1337-pt"><a href="https://www.okex.win/academy/pt/" hreflang="pt-BR" lang="pt-BR">Português</a></li>
+</ul>
+</li>
+</ul></div>    
+
+    <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5RX47XK' height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
+    </body>
+    
+</html>
