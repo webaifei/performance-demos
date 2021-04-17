@@ -45,23 +45,7 @@
         win.fetch || doc.write(script.replace(re, 'fetch-polyfill.min.js'));
         win.Promise && Object.assign && ''.includes && [].includes || doc.write(script.replace(re, 'es6-polyfill.min.js'));
     </script>
-    <script src="https://static.coinall.ltd/cdn/assets/okfe/util/ont/0.4.46/ont.js"></script>
-    <script src="https://static.coinall.ltd/cdn/assets/okfe/util/monitor/2.4.20/index.js"></script>
-    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/commonImportTop/index.js"></script>
-    <script src="https://static.coinall.ltd/cdn/language/okex/seo_ex/zh_cn/okex_seo_ex_zh_cn.js?v=6.2.119"></script>
-    <script>
-        window.javaweb_locale = "{}";
-    </script>
-    <script>
-        window.okGlobal.isResponsive=true;
-    </script>
-    <script src="//static.coinall.ltd/cdn/assets/okfe/libs/jquery/jquery1.12.4.min.js"></script>
-    <script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/common.js'></script>
-    <script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/banner.js'></script>
-<script type='text/javascript' src='https://static.coinall.ltd/cdn/assets/okfe/libs/jsbridge/index-0.3.8.js'></script>
-    <script type='text/javascript'>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5RX47XK');
-    </script>
+   
 
     </head>
 
@@ -1086,33 +1070,7 @@
             </ul>
 </section>
 </div>
-<script>
-    $('.block-list .wp-block-image').remove();
-</script>
-<script>
-  function resizeImg(){
-    const width = $('#sidebar .post .img-box')[1].offsetWidth;
-    $("#sidebar .post .img-box").each(function(){
-      $(this)[0].style.height=width/1.78+'px';
-    })
-  }
-  resizeImg();
-  window.onresize=function(){
-    resizeImg();
-  }
-</script>
-<script>
-   $("img").on("error", function(){
-      if (this.src.indexOf('cdn/assets/academy/') === -1) {
-        return;
-      }
-      const imgSrc = (this.src).match(/academy(\S*)/);
-      if(imgSrc){
-        this.src = "https://www.okex.win/academy/academy/wp-content/uploads"+imgSrc[1];
-      }
-      this.onerror=null;
-   });
-</script>
+
 <div>
     
     
@@ -1276,9 +1234,7 @@
     
     
 
-    <script src="https://static.coinall.ltd/cdn/language/okex/seo_ex/zh_cn/okex_seo_ex_zh_cn.js?v=6.2.119"></script>
-    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/nav/index.js"></script>
-    <script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/global/index.js"></script>
+   
 </div>
 
     <div class="menu-header"><ul id="menu-leftmenu-1" class="menu"><li class="pll-parent-menu-item menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1337"><a href="#pll_switcher">简体中文</a>
@@ -1292,7 +1248,53 @@
 </ul>
 </li>
 </ul></div>    
-
+<script src="https://static.coinall.ltd/cdn/language/okex/seo_ex/zh_cn/okex_seo_ex_zh_cn.js?v=6.2.119"></script>
+<script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/nav/index.js"></script>
+<script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/global/index.js"></script>
+<script src="https://static.coinall.ltd/cdn/assets/okfe/util/ont/0.4.46/ont.js"></script>
+<script src="https://static.coinall.ltd/cdn/assets/okfe/util/monitor/2.4.20/index.js"></script>
+<script src="https://static.coinall.ltd/cdn/assets/okfe/seo-ex/6.2.119/main/modules/commonImportTop/index.js"></script>
+<script src="https://static.coinall.ltd/cdn/language/okex/seo_ex/zh_cn/okex_seo_ex_zh_cn.js?v=6.2.119"></script>
+<script>
+    window.javaweb_locale = "{}";
+</script>
+<script>
+    window.okGlobal.isResponsive=true;
+</script>
+<script src="//static.coinall.ltd/cdn/assets/okfe/libs/jquery/jquery1.12.4.min.js"></script>
+<script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/common.js'></script>
+<script src='//static.coinall.ltd/cdn/assets/okfe/okex_academy/0.2.58/assets/js/banner.js'></script>
+<script type='text/javascript' src='https://static.coinall.ltd/cdn/assets/okfe/libs/jsbridge/index-0.3.8.js'></script>
+<script type='text/javascript'>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5RX47XK');
+</script>
+<script>
+    $('.block-list .wp-block-image').remove();
+</script>
+<script>
+  function resizeImg(){
+    const width = $('#sidebar .post .img-box')[1].offsetWidth;
+    $("#sidebar .post .img-box").each(function(){
+      $(this)[0].style.height=width/1.78+'px';
+    })
+  }
+  resizeImg();
+  window.onresize=function(){
+    resizeImg();
+  }
+</script>
+<script>
+   $("img").on("error", function(){
+      if (this.src.indexOf('cdn/assets/academy/') === -1) {
+        return;
+      }
+      const imgSrc = (this.src).match(/academy(\S*)/);
+      if(imgSrc){
+        this.src = "https://www.okex.win/academy/academy/wp-content/uploads"+imgSrc[1];
+      }
+      this.onerror=null;
+   });
+</script>
     <noscript><iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5RX47XK' height='0' width='0' style='display:none;visibility:hidden'></iframe></noscript>
     </body>
 </html>
